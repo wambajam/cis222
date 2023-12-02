@@ -1,0 +1,25 @@
+name: Create VM
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create VM
+        uses: azure/vm-create-action@v1
+        with:
+          resourceGroup: my-resource-group
+          vmName: my-vm
+          location: westus2
+          size: Standard_D2s_v3
+          adminUsername: my-username
+          adminPassword: my-password
+
+      - name: Run commands on VM
+        uses: actions/exec@v3
+        with:
+          command: echo "Hello, world!" 
